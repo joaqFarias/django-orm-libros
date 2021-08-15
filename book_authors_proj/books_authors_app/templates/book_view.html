@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libros y Autores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    {% load static %}		<!-- agregar estatic-->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+</head>
+<body>
+    <div class="container-fluid p-5 pt-0 ps-2 bg-white">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="">Books and Authors</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/books">Books</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/authors">Authors</a>
+            </li>
+            </ul>
+        </div>
+        </nav>
+
+        <div class="row">
+            <div class="col-md-5 ps-5 pt-5">
+                <h1>{{libro.title}}</h1>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-5 ps-5">
+            <b>ID:</b> {{libro.id}}
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-1 ps-5">
+                <b>Description:</b>
+            </div>
+            <div class="col-md-4 ps-5">
+                {{libro.desc}}
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-5 ps-5"> 
+                <b>Autors:</b>
+                <ul>
+                    {% for autor in autores %}
+                        <li>{{autor.first_name}} {{autor.last_name}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <form action="/books/{{libro.id}}" method="post">{% csrf_token %}
+        <div class="row mt-4">
+                <div class="col-md-2 ps-4">
+                    <select class="form-select" aria-label="Default select example" name='autor_get'>
+                        <option selected>-Select on author-</option>
+                        {% for autor_out in autores_out %}
+                            <option value="{{autor_out.id}}">{{autor_out.first_name}} {{autor_out.last_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class='col-md-1'>
+                    <button type="submit" class="btn btn-secondary">Add</button>
+                </div>  
+        </div>
+        </form>
+    </div>
+
+    <script src='{% static "js/actions.js" %}'></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    </body>
+</html>

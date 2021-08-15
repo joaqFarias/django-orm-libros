@@ -1,0 +1,11 @@
+* {
+    /* para dar el cuadriculado  */
+    outline: 1px dotted yellowgreen;
+    margin: 0px;
+    padding: 0px; 
+}  
+
+.container { 
+    background: gray; 
+    min-height: 100vh; 
+}
